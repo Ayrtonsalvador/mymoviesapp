@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('sync-request');
 var movieModel = require('../models/moviemodel')
-
+var API_KEY = SECRET_API_KEY
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 
 /* GET movies from the API */
 router.get('/new-movies', function(req, res, next) { 
-var result = request("GET", "https://api.themoviedb.org/3/discover/movie?api_key=b7f73dab20eb8e5b985d94ca67a9a009&language=fr-FR&region=FR&sort_by=release_date.desc&include_adult=false&include_video=false&page=1&release_date.lte=2020-01-01"); 
+var result = request("GET", `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=fr-FR&region=FR&sort_by=release_date.desc&include_adult=false&include_video=false&page=1&release_date.lte=2020-01-01`); 
 var resultApi = JSON.parse(result.body);
   res.json({result: true, movies:resultApi.results}); 
 });
